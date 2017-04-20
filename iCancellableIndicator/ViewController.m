@@ -37,14 +37,19 @@
         [self.view addSubview:_indicator];
         [_indicator setFrame:self.view.bounds];
         [_indicator setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+        __weak id weakself = self;
         [_indicator setFailedCallback:^(iCancellableIndicator *indicator){
-            [indicator setState:kIndicatorRevolving];
+            UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"You want the recent screenshot to be reported?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [weakself presentViewController:actionSheet animated:YES completion:nil];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (indicator.state == kIndicatorRevolving) {
-                    [indicator setState:kHidden];
-                }
-            });
+            [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            [actionSheet addAction:[UIAlertAction actionWithTitle:@"Upload again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [weakself startProcessAction:nil];
+            }]];
+            [actionSheet addAction:[UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [indicator setState:kHidden];
+            }]];
+
         }];
     }
     return _indicator;

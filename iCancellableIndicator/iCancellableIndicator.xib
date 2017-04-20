@@ -31,7 +31,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.15402932363013699" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="WB7-Po-tKn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5Mk-Rv-ibU"/>
                 <constraint firstAttribute="bottom" secondItem="2jB-nq-e8g" secondAttribute="bottom" id="6uj-Oy-VC6"/>
